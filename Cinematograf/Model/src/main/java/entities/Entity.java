@@ -1,16 +1,25 @@
 package entities;
 
+import org.hibernate.annotations.GenericGenerator;
+
+import javax.persistence.GeneratedValue;
+import javax.persistence.Id;
+import javax.persistence.MappedSuperclass;
 import java.io.Serializable;
 
-public class Entity<ID> implements Serializable {
+@MappedSuperclass
+public class Entity implements Serializable {
+
+    @Id
+    @GeneratedValue(generator="increment")
+    @GenericGenerator(name="increment", strategy = "increment")
+    private Long id;
 
 
-    private static final long serialVersionUID = 7331115341259248461L;
-    private ID id;
-    public ID getId() {
+    public Long getId() {
         return id;
     }
-    public void setId(ID id) {
+    public void setId(Long id) {
         this.id = id;
     }
 }

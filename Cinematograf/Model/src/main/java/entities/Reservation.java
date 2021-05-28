@@ -1,17 +1,18 @@
 package entities;
 
 import java.time.LocalDateTime;
+import java.util.List;
 
-public class Reservation extends Entity<Long> {
+public class Reservation extends Entity {
     private LocalDateTime reservationDate;
-    private Long clientID;
-    private Tuple<Integer, Integer> seatID;
-    private Long MovieID;
+    private Client clientID;
+    private List<Seat> seatsIDs;
+    private Movie movieID;
 
-    public Reservation(LocalDateTime reservationDate, Long clientID, Tuple<Integer, Integer> seatID, Long movieID) {
+    public Reservation(LocalDateTime reservationDate, Client clientID, List<Seat> seatsIDs, Movie movieID) {
         this.reservationDate = reservationDate;
         this.clientID = clientID;
-        this.seatID = seatID;
-        MovieID = movieID;
+        this.seatsIDs = seatsIDs;
+        this.movieID = movieID;
     }
 }

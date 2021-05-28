@@ -1,14 +1,25 @@
 package entities;
 
-import java.time.LocalTime;
+import javax.persistence.Column;
+import javax.persistence.Table;
 
-public class Movie extends Entity<Long> {
+
+@javax.persistence.Entity
+@Table(name = "Movies")
+public class Movie extends Entity {
+    @Column(name = "title", unique = true, nullable = false)
     private String title;
-    private LocalTime duration;
+//    @Temporal(TemporalType.TIME)
+    @Column(name = "duration", nullable = false, columnDefinition = "varchar(8)")
+    private String duration;
+    @Column(name = "rating", nullable = false)
     private Integer rating;
+    @Column(name = "description")
     private String description;
 
-    public Movie(String title, LocalTime duration, Integer rating, String description) {
+    public Movie(){}
+
+    public Movie(String title, String duration, Integer rating, String description) {
         this.title = title;
         this.duration = duration;
         this.rating = rating;
@@ -23,11 +34,11 @@ public class Movie extends Entity<Long> {
         this.title = title;
     }
 
-    public LocalTime getDuration() {
+    public String getDuration() {
         return duration;
     }
 
-    public void setDuration(LocalTime duration) {
+    public void setDuration(String duration) {
         this.duration = duration;
     }
 

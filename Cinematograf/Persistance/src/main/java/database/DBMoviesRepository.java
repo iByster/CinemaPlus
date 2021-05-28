@@ -1,0 +1,89 @@
+package database;
+
+import entities.Client;
+import entities.Movie;
+import interfaces.IMovieRepository;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
+import org.hibernate.Session;
+import org.hibernate.SessionFactory;
+import org.hibernate.Transaction;
+import validators.Validator;
+
+import java.util.List;
+
+public class DBMoviesRepository implements IMovieRepository {
+
+    private Validator<Movie> validator;
+    public SessionFactory sessionFactory;
+
+    private static final Logger logger= LogManager.getLogger();
+
+    public DBMoviesRepository(Validator<Movie> validator, SessionFactory sessionFactory) {
+
+        this.validator = validator;
+        this.sessionFactory = sessionFactory;
+    }
+
+    @Override
+    public Movie save(Movie movie) {
+        try(Session session = sessionFactory.openSession()) {
+            Transaction tx = null;
+            try {
+                tx = session.beginTransaction();
+                session.save(movie);
+                System.out.println("Movie "+ movie +"saved");
+
+                tx.commit();
+
+                return movie;
+            } catch (RuntimeException ex) {
+                if (tx != null)
+                    tx.rollback();
+            }
+        }
+        return movie;
+    }
+
+    @Override
+    public Movie findOne(Long aLong) {
+        return null;
+    }
+
+    @Override
+    public Movie update(Movie movie) {
+        return null;
+    }
+
+    @Override
+    public Movie delete(Movie movie) {
+        return null;
+    }
+
+    @Override
+    public List<Movie> getAll() {
+        List<Movie> movies = null;
+        try(Session session = sessionFactory.openSession()) {
+            Transaction tx = null;
+            try {
+                tx = session.beginTransaction();
+                String queryString = "SELECT * FROM Movies";
+                movies = session.createNativeQuery(queryString, Movie.class).list();
+                System.out.println("Movies returned : \n" + movies);
+
+                tx.commit();
+
+                return movies;
+            } catch (RuntimeException ex) {
+                if (tx != null)
+                    tx.rollback();
+            }
+        }
+        return movies;
+    }
+
+    @Override
+    public int size() {
+        return 0;
+    }
+}
