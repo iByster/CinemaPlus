@@ -33,6 +33,7 @@ public class DBClientRepository implements IClientRepository {
         try(Session session = sessionFactory.openSession()) {
             Transaction tx = null;
             try {
+                validator.validate(user);
                 tx = session.beginTransaction();
 //                String queryString = "INSERT * INTO Clients VALUES ('"+ user.getUsername() + "', '" + user.getPassword() + "', " + user.getFidelity() + ", '" + user.getName() + "', '" + user.getTelNumber() + "', " + user.getAge() + ")";
                 session.save(user);
@@ -78,6 +79,7 @@ public class DBClientRepository implements IClientRepository {
         try(Session session = sessionFactory.openSession()) {
             Transaction tx = null;
             try {
+                validator.validate(user);
                 tx = session.beginTransaction();
                 session.update(user);
                 System.out.println("User with username: " + user.getUsername() + "update: " + user);

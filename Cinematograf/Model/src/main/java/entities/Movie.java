@@ -16,14 +16,18 @@ public class Movie extends Entity {
     private Integer rating;
     @Column(name = "description")
     private String description;
+    @Column(name = "movieType")
+    private String movieType;
 
     public Movie(){}
 
-    public Movie(String title, String duration, Integer rating, String description) {
+
+    public Movie(String title, String duration, Integer rating, String description, String movieType) {
         this.title = title;
         this.duration = duration;
         this.rating = rating;
         this.description = description;
+        this.movieType = movieType;
     }
 
     public String getTitle() {

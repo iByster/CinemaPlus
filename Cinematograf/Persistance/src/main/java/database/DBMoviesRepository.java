@@ -29,10 +29,34 @@ public class DBMoviesRepository implements IMovieRepository {
     public Movie save(Movie movie) {
         try(Session session = sessionFactory.openSession()) {
             Transaction tx = null;
+            Long movieID = null;
+            try {
+                validator.validate(movie);
+                tx = session.beginTransaction();
+                movieID =(Long) session.save(movie);
+                System.out.println("Movie "+ movie +"saved");
+
+                tx.commit();
+                movie.setId(movieID);
+                return movie;
+            } catch (RuntimeException ex) {
+                if (tx != null)
+                    tx.rollback();
+            }
+        }
+        return movie;
+    }
+
+    @Override
+    public Movie findOne(Long aLong) {
+        Movie movie = null;
+        try(Session session = sessionFactory.openSession()) {
+            Transaction tx = null;
             try {
                 tx = session.beginTransaction();
-                session.save(movie);
-                System.out.println("Movie "+ movie +"saved");
+                String queryString = "SELECT * FROM Movies WHERE id="+aLong;
+                movie = session.createNativeQuery(queryString, Movie.class).uniqueResult();
+                System.out.println("Movies found : \n" + movie);
 
                 tx.commit();
 
@@ -46,18 +70,44 @@ public class DBMoviesRepository implements IMovieRepository {
     }
 
     @Override
-    public Movie findOne(Long aLong) {
-        return null;
-    }
-
-    @Override
     public Movie update(Movie movie) {
-        return null;
+        try(Session session = sessionFactory.openSession()) {
+            Transaction tx = null;
+            try {
+                validator.validate(movie);
+                tx = session.beginTransaction();
+                session.update(movie);
+                System.out.println("Movie "+ movie +"updated");
+
+                tx.commit();
+
+                return movie;
+            } catch (RuntimeException ex) {
+                if (tx != null)
+                    tx.rollback();
+            }
+        }
+        return movie;
     }
 
     @Override
     public Movie delete(Movie movie) {
-        return null;
+        try(Session session = sessionFactory.openSession()) {
+            Transaction tx = null;
+            try {
+                tx = session.beginTransaction();
+                session.delete(movie);
+                System.out.println("Movie "+ movie +"deleted");
+
+                tx.commit();
+
+                return movie;
+            } catch (RuntimeException ex) {
+                if (tx != null)
+                    tx.rollback();
+            }
+        }
+        return movie;
     }
 
     @Override
@@ -85,5 +135,35 @@ public class DBMoviesRepository implements IMovieRepository {
     @Override
     public int size() {
         return 0;
+    }
+
+    @Override
+    public List<Movie> filterMovieByType() {
+        return null;
+    }
+
+    @Override
+    public List<Movie> filterMovieByTitle() {
+        return null;
+    }
+
+    @Override
+    public List<Movie> sortMoviesAscendingByTitle() {
+        return null;
+    }
+
+    @Override
+    public List<Movie> sortMoviesDescendingByTitle() {
+        return null;
+    }
+
+    @Override
+    public List<Movie> sortMoviesDescendingByRating() {
+        return null;
+    }
+
+    @Override
+    public List<Movie> sortMoviesAscendingByRating() {
+        return null;
     }
 }

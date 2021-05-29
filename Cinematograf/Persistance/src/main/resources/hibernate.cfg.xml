@@ -19,6 +19,9 @@
 
         <mapping class="entities.Client"/>
         <mapping class="entities.Movie"/>
+        <mapping class="entities.Reservation"/>
+        <mapping class="entities.Seat"/>
+        <mapping class="entities.Offer"/>
 
     </session-factory>
 </hibernate-configuration>
