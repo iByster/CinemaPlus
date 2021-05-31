@@ -9,6 +9,9 @@ repositories {
     mavenCentral()
 }
 
+sourceCompatibility = 1.8
+
+
 dependencies {
     compile project (':Model')
     testCompile group: 'junit', name: 'junit', version: '4.12'
@@ -19,4 +22,8 @@ dependencies {
     implementation "jakarta.xml.bind:jakarta.xml.bind-api:2.3.2"
     implementation "org.glassfish.jaxb:jaxb-runtime:2.3.2"
     compile 'org.springframework:spring-context:5.1.0.RELEASE'
+    compile 'org.springframework:spring-tx:5.3.6'
+    implementation group: 'org.springframework', name: 'spring-orm', version: '5.0.2.RELEASE'
+    compile 'org.xerial:sqlite-jdbc:3.32.3.3'
+
 }

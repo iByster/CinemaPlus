@@ -1,0 +1,29 @@
+.movie-card {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    text-align: center;
+    flex-direction: column;
+}
+
+.movie-card img {
+    height: 30vw;
+}
+
+.movie-container {
+    padding: 40px 20px;
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 12px;
+}
+
+
+.movie-card ul {
+    display: flex;
+    list-style: none;
+    flex-grow: 1;
+    gap: 10px;
+    padding: 0;
+    align-items: center;
+    text-align: center;
+}

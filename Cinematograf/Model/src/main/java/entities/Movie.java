@@ -18,16 +18,19 @@ public class Movie extends Entity {
     private String description;
     @Column(name = "movieType")
     private String movieType;
+    @Column(name = "image")
+    private String image;
 
     public Movie(){}
 
 
-    public Movie(String title, String duration, Integer rating, String description, String movieType) {
+    public Movie(String title, String duration, Integer rating, String description, String movieType,String image) {
         this.title = title;
         this.duration = duration;
         this.rating = rating;
         this.description = description;
         this.movieType = movieType;
+        this.image = image;
     }
 
     public String getTitle() {
@@ -62,13 +65,31 @@ public class Movie extends Entity {
         this.description = description;
     }
 
+    public String getMovieType() {
+        return movieType;
+    }
+
+    public void setMovieType(String movieType) {
+        this.movieType = movieType;
+    }
+
+    public String getImage() {
+        return image;
+    }
+
+    public void setImage(String image) {
+        this.image = image;
+    }
+
     @Override
     public String toString() {
         return "Movie{" +
                 "title='" + title + '\'' +
-                ", duration=" + duration +
+                ", duration='" + duration + '\'' +
                 ", rating=" + rating +
                 ", description='" + description + '\'' +
+                ", movieType='" + movieType + '\'' +
+                ", image='" + image + '\'' +
                 '}';
     }
 }

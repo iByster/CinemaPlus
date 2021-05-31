@@ -1,17 +1,11 @@
-import database.*;
+import persistence.database.*;
 import entities.*;
-import interfaces.*;
+import persistence.interfaces.*;
 import org.hibernate.SessionFactory;
 import org.hibernate.boot.MetadataSources;
 import org.hibernate.boot.registry.StandardServiceRegistry;
 import org.hibernate.boot.registry.StandardServiceRegistryBuilder;
-import validators.*;
-
-import java.io.IOException;
-import java.util.ArrayList;
-import java.util.Calendar;
-import java.util.List;
-import java.util.Properties;
+import persistence.validators.*;
 
 public class test {
     private static SessionFactory sessionFactory;
@@ -45,7 +39,7 @@ public class test {
 
     private static void testDBMovie() {
         IMovieRepository dbMovieRepository = new DBMoviesRepository(new MovieValidator(), sessionFactory);
-        Movie movie = new Movie("Batman","02:00", 8, "Good for you! <3", "Actiune");
+        Movie movie = new Movie("Batman","02:00", 8, "Good for you! <3", "Actiune", "");
         movie = dbMovieRepository.save(movie);
         dbMovieRepository.getAll();
         System.out.println(dbMovieRepository.findOne(movie.getId()));
@@ -93,7 +87,7 @@ public class test {
     }
 
     private static void testDBReservations(){
-        IReservationsRepository reservationsRepository = new DBReservationsRepository(new ReservationValidator(), sessionFactory);
+        IReservationRepository reservationsRepository = new DBReservationsRepository(new ReservationValidator(), sessionFactory);
 //        ISeatsRepository seatsRepository = new DBSeatsRepository(new SeatValidator(), sessionFactory);
 //        List<Seat> seatList = new ArrayList<>();
 //        seatList.add(seatsRepository.findOne(1L));

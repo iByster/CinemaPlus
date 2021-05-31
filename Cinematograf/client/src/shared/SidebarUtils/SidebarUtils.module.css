@@ -1,0 +1,7 @@
+.container {
+    background:#C6C6C6;
+    width: 20%;
+    height: 100vh;
+    float: left;
+    border-right: 1px solid black;
+}
