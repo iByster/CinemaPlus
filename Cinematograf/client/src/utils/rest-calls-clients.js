@@ -1,17 +1,5 @@
 import {CINEMATOGRAF_CLIENTS_BASE_URL} from "./consts";
-
-function status(response) {
-    console.log('response status '+response.status);
-    if (response.status >= 200 && response.status < 300) {
-        return Promise.resolve(response)
-    } else {
-        return Promise.reject(new Error(response.statusText))
-    }
-}
-
-function json(response) {
-    return response.json()
-}
+import {status, json} from "./rest-utils";
 
 
 export function GetClientLogged(id, password){

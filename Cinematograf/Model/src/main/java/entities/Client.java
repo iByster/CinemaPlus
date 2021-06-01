@@ -28,6 +28,10 @@ public class Client extends User {
 
     public Client(){}
 
+    public Client(String username){
+        this.setUsername(username);
+    }
+
 //    public Client(String username, String password, String fidelity, String name, String telNumber, int age) {
 //        super(username, password);
 //        this.fidelity = fidelity;

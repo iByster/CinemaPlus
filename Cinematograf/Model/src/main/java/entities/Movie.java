@@ -23,6 +23,9 @@ public class Movie extends Entity {
 
     public Movie(){}
 
+    public Movie(String id){
+        this.setId(Long.parseLong(id));
+    }
 
     public Movie(String title, String duration, Integer rating, String description, String movieType,String image) {
         this.title = title;

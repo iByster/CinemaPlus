@@ -13,7 +13,7 @@ export function MovieList(){
 
     return (
       <section className={style['movie-container']}>
-          {movies.map((movie) => (<MovieCard data={movie} key={movie.id}/>))}
+          {movies.length > 0 && movies.map((movie) => (<MovieCard data={movie} key={movie.id}/>))}
       </section>
     );
 }

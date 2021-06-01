@@ -4,6 +4,7 @@
     align-items: center;
     text-align: center;
     flex-direction: column;
+    border: 1px solid black;
 }
 
 .movie-card img {

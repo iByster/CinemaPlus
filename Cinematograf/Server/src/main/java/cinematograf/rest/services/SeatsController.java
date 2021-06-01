@@ -23,8 +23,17 @@ public class SeatsController {
 
         List<Seat> seats = seatsRepository.getAllSeatsByMovie(id);
         if (seats == null)
-            return new ResponseEntity<String>("User not found", HttpStatus.NOT_FOUND);
+            return new ResponseEntity<String>("Seats not found", HttpStatus.NOT_FOUND);
         else
             return new ResponseEntity<List<Seat>>(seats, HttpStatus.OK);
+    }
+
+
+    @RequestMapping(value = "/{id}", method = RequestMethod.PUT)
+    public Seat update(@RequestBody Seat seat) {
+        System.out.println("Updating seat ...");
+        seatsRepository.update(seat);
+        return seat;
+
     }
 }

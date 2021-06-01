@@ -7,18 +7,39 @@
 }
 
 .screen {
-    background: gray;
+    background: #CECBCB;
     text-align: center;
     width: 660px;
     padding: 10px 0;
+    margin: 15px 0 65px 0;
+
+    border: 1px solid #857F7F;
 }
 
 .seats-container {
     display: grid;
-    grid-template-rows: repeat(4, 20%);
-    grid-template-columns: repeat(11, 50px);
+    grid-template-rows: repeat(4, 60px);
+    grid-template-columns: repeat(12, 60px);
+    gap: 40px;
+    margin-bottom: 65px;
 }
 
 .screen p {
     margin: 0;
+    font-weight: bolder;
+    font-size: 20px;
+    font-family: Arial;
+    color: #707070;
+}
+
+.button {
+    border: 1px solid #707070;
+    padding: 8px 80px;
+    color: #707070;
+}
+
+.buyticket-button {
+    background: #BFFFAD;
+    font-size: 40px;
+    font-weight: 900;
 }

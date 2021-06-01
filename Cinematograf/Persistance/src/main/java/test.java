@@ -7,6 +7,8 @@ import org.hibernate.boot.registry.StandardServiceRegistry;
 import org.hibernate.boot.registry.StandardServiceRegistryBuilder;
 import persistence.validators.*;
 
+import java.util.Calendar;
+
 public class test {
     private static SessionFactory sessionFactory;
 
@@ -83,7 +85,8 @@ public class test {
 //        }
 
         Seat seat = seatsRepository.findOne(32L);
-        System.out.println(seat.getMovie());
+//        seat.setReservation(new Reservation("2"));
+        seatsRepository.update(seat);
     }
 
     private static void testDBReservations(){
@@ -92,12 +95,13 @@ public class test {
 //        List<Seat> seatList = new ArrayList<>();
 //        seatList.add(seatsRepository.findOne(1L));
 //        seatList.add(seatsRepository.findOne(2L));
-//        Movie movie = new Movie();
-//        movie.setId(5L);
-//        Client client = new Client();
-//        client.setUsername("ganealex");
-//        Reservation reservation = new Reservation(Calendar.getInstance(), client, seatList, movie);
-//        reservationsRepository.save(reservation);
+        Movie movie = new Movie();
+        movie.setId(5L);
+        Client client = new Client();
+        client.setUsername("bogdan");
+        Reservation reservation = new Reservation(Calendar.getInstance(), client, movie);
+        Reservation reservation2 = reservationsRepository.save(reservation);
+        System.out.println(reservation2);
 //        seatList.get(0).setReservation(reservation);
 //        seatList.get(0).setSeatType(SeatType.TAKEN);
 //        seatList.get(1).setSeatType(SeatType.TAKEN);
@@ -105,10 +109,10 @@ public class test {
 //        seatsRepository.update(seatList.get(0));
 //        seatsRepository.update(seatList.get(1));
 
-        Reservation reservation = reservationsRepository.findOne(1L);
-        System.out.println(reservation.getClientID());
-        System.out.println(reservation.getMovieID());
-        reservation.getSeatsIDs().forEach(System.out::println);
+//        reservation = reservationsRepository.findOne(1L);
+//        System.out.println(reservation.getClientID());
+//        System.out.println(reservation.getMovieID());
+//        reservation.getSeatsIDs().forEach(System.out::println);
     }
 
     private static void testOffers(){
@@ -129,7 +133,7 @@ public class test {
     public static void main(String ... arg) {
         initialize();
 
-        testOffers();
+        testDBSteats();
 
         close();
     }

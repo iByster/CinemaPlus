@@ -14,18 +14,21 @@ public class Reservation extends Entity {
     @ManyToOne
     @JoinColumn(name ="clientId")
     private Client clientID;
-    @OneToMany(fetch = FetchType.EAGER, mappedBy="reservation", cascade = CascadeType.ALL)
-    private List<Seat> seatsIDs;
+//    @OneToMany(fetch = FetchType.EAGER, mappedBy="reservation", cascade = CascadeType.ALL)
+//    private List<Seat> seatsIDs;
     @ManyToOne
     @JoinColumn(name ="movieId")
     private Movie movieID;
 
     public Reservation(){}
 
-    public Reservation(Calendar reservationDate, Client clientID, List<Seat> seatsIDs, Movie movieID) {
+    public Reservation(Long id){
+        this.setId(id);
+    }
+
+    public Reservation(Calendar reservationDate, Client clientID, Movie movieID) {
         this.reservationDate = reservationDate;
         this.clientID = clientID;
-        this.seatsIDs = seatsIDs;
         this.movieID = movieID;
     }
 
@@ -45,19 +48,20 @@ public class Reservation extends Entity {
         this.clientID = clientID;
     }
 
-    public List<Seat> getSeatsIDs() {
-        return seatsIDs;
-    }
-
-    public void setSeatsIDs(List<Seat> seatsIDs) {
-        this.seatsIDs = seatsIDs;
-    }
-
     public Movie getMovieID() {
         return movieID;
     }
 
     public void setMovieID(Movie movieID) {
         this.movieID = movieID;
+    }
+
+    @Override
+    public String toString() {
+        return "Reservation{" +
+                "reservationDate=" + reservationDate +
+                ", clientID=" + clientID +
+                ", movieID=" + movieID +
+                '}';
     }
 }

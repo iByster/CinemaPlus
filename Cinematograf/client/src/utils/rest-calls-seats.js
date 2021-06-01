@@ -1,18 +1,5 @@
 import {CINEMATOGRAF_SEATS_BASE_URL} from "./consts";
-
-function status(response) {
-    console.log('response status '+response.status);
-    if (response.status >= 200 && response.status < 300) {
-        return Promise.resolve(response)
-    } else {
-        return Promise.reject(new Error(response.statusText))
-    }
-}
-
-function json(response) {
-    return response.json()
-}
-
+import {status, json} from "./rest-utils";
 
 
 export function GetSeats(movieID){
@@ -38,4 +25,26 @@ export function GetSeats(movieID){
             return error;
         });
 
+}
+
+export function UpdateSeat(seat){
+    console.log('inainte de fetch post'+JSON.stringify(seat));
+
+    const myHeaders = new Headers();
+    myHeaders.append("Accept", "application/json");
+    myHeaders.append("Content-Type","application/json");
+
+    const antet = { method: 'PUT',
+        headers: myHeaders,
+        mode: 'cors',
+        body:JSON.stringify(seat)};
+
+    return fetch(CINEMATOGRAF_SEATS_BASE_URL+'/' + seat.id,antet)
+        .then(status)
+        .then(response=>{
+            return response.text();
+        }).catch(error=>{
+            console.log('Request failed', error);
+            return Promise.reject(error);
+        });
 }
