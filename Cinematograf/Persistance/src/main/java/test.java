@@ -39,6 +39,11 @@ public class test {
         dbClientRepository.update(client);
     }
 
+    private static void testDBAdmin() {
+        IAdminRepository adminRepository = new DBAdminRepository(new AdminValidator(), sessionFactory);
+        System.out.println(adminRepository.findOne("admin"));
+    }
+
     private static void testDBMovie() {
         IMovieRepository dbMovieRepository = new DBMoviesRepository(new MovieValidator(), sessionFactory);
         Movie movie = new Movie("Batman","02:00", 8, "Good for you! <3", "Actiune", "");
@@ -133,7 +138,7 @@ public class test {
     public static void main(String ... arg) {
         initialize();
 
-        testDBSteats();
+        testDBAdmin();
 
         close();
     }

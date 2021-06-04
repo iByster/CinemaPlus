@@ -124,4 +124,44 @@ public class DBReservationsRepository implements IReservationRepository {
     public int size() {
         return 0;
     }
+
+    @Override
+    public List<Reservation> getAllByClient(String username) {
+        List<Reservation> reservations = null;
+        try(Session session = sessionFactory.openSession()) {
+            Transaction tx = null;
+            try {
+                tx = session.beginTransaction();
+                String queryString = "SELECT * FROM Reservations WHERE clientId='" + username + "'";
+                reservations = session.createNativeQuery(queryString, Reservation.class).list();
+                System.out.println("Reservations returned : \n" + reservations);
+
+                tx.commit();
+
+                return reservations;
+            } catch (RuntimeException ex) {
+                if (tx != null)
+                    tx.rollback();
+            }
+        }
+        return reservations;
+    }
+
+    @Override
+    public void deleteAllReservationsByMovie(Long movieID) {
+        try(Session session = sessionFactory.openSession()) {
+            Transaction tx = null;
+
+            try {
+                tx = session.beginTransaction();
+                session.delete(movieID);
+
+                tx.commit();
+
+            } catch (RuntimeException ex) {
+                if (tx != null)
+                    tx.rollback();
+            }
+        }
+    }
 }

@@ -1,13 +1,18 @@
 import style from './Seat.module.css';
-import {useState} from "react";
+import {useEffect, useState} from "react";
 
 export function Seat(props){
-    const {x, seatType} = props.data;
+    let {x, seatType} = props.data;
+    // console.log(seatType);
     let {y} = props.data;
-
-
-
     const [isSelected, setIsSelected] = useState(false);
+    //
+    // useEffect(() => {
+    //     if(props.isTaken(seatType)){
+    //         setIsSelected(!isSelected);
+    //     }
+    // }, [seatType]);
+
 
     const color = seatType === 'FREE' ? 'white' : 'red';
 
@@ -26,14 +31,12 @@ export function Seat(props){
         }
     }
 
-    const setSeatInactive = () => {
-        setIsSelected(false);
-    }
+
 
     y += x % 2 === 1 ? 1 : 0;
 
     return(
-        <div onClick={toggleSelectSeat} className={`${style.seat} ${isSelected ? style['seat-active'] : ''}`}
+        <div onClick={toggleSelectSeat} className={`${style.seat} ${isSelected && seatType === 'FREE'  ? style['seat-active'] : style['seat-taken']}`}
              style={{gridColumn : y, gridRow: x, background: color}}>
 
         </div>

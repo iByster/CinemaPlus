@@ -126,7 +126,20 @@ public class DBSeatsRepository implements ISeatsRepository {
 
     @Override
     public void deleteAllSeatsByMovie(Long movieId) {
+        try(Session session = sessionFactory.openSession()) {
+            Transaction tx = null;
 
+            try {
+                tx = session.beginTransaction();
+                session.delete(movieId);
+
+                tx.commit();
+
+            } catch (RuntimeException ex) {
+                if (tx != null)
+                    tx.rollback();
+            }
+        }
     }
 
     @Override
@@ -136,7 +149,29 @@ public class DBSeatsRepository implements ISeatsRepository {
             Transaction tx = null;
             try {
                 tx = session.beginTransaction();
-                String queryString = "SELECT * FROM Seats WHERE movieID =" + movieId;
+                String queryString = "SELECT * FROM Seats WHERE movieId =" + movieId;
+                seats = session.createNativeQuery(queryString, Seat.class).list();
+                System.out.println("Seats returned : \n" + seats);
+
+                tx.commit();
+
+                return seats;
+            } catch (RuntimeException ex) {
+                if (tx != null)
+                    tx.rollback();
+            }
+        }
+        return seats;
+    }
+
+    @Override
+    public List<Seat> getAllSeatsByReservation(Long reservationId) {
+        List<Seat> seats = null;
+        try(Session session = sessionFactory.openSession()) {
+            Transaction tx = null;
+            try {
+                tx = session.beginTransaction();
+                String queryString = "SELECT * FROM Seats WHERE reservationId =" + reservationId;
                 seats = session.createNativeQuery(queryString, Seat.class).list();
                 System.out.println("Seats returned : \n" + seats);
 

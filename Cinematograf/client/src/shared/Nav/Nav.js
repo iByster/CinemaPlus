@@ -10,7 +10,7 @@ import './UserProfile/UserProfile.module.css'
 
 export function Nav(){
     const {userProfile} = useAuthContext();
-
+    const { logout } = useAuthContext();
     return(
       <nav className={style.nav}>
           <Link exact to="/" style={{textDecoration:'none', color:'#181518', fontWeight:'bolder'}}>
@@ -34,7 +34,7 @@ export function Nav(){
 
                     </li>
                     <li>
-                    <button className={buttonStyle['button']}>
+                        <button onClick={logout} className={buttonStyle['button']}>
                             Logout
                         </button>
                     </li>

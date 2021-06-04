@@ -4,11 +4,12 @@ import {useState} from "react";
 import {useAuthContext} from "../AuthContext";
 import jwtDecode from 'jwt-decode';
 import {GetClientLogged} from "../../utils/rest-calls-clients";
+import {GetAdminLogged} from "../../utils/rest-calls-admins";
 
 export function Login(){
     const [loginValues, setLoginValues] = useState({
         username: '',
-        password: ''
+        password: '',
     });
 
     const { login } = useAuthContext();
@@ -24,6 +25,11 @@ export function Login(){
     async function handleSubmit(e) {
         e.preventDefault();
         await GetClientLogged(loginValues.username, loginValues.password)
+            .then(res => login(res))
+            .catch(
+                e => console.log(e)
+            );
+        await GetAdminLogged(loginValues.username, loginValues.password)
             .then(res => login(res))
             .catch(
                 e => console.log(e)

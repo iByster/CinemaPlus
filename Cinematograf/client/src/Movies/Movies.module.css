@@ -7,6 +7,10 @@
     border: 1px solid black;
 }
 
+.movie-card-selected {
+    background: #BBF7ED;
+}
+
 .movie-card img {
     height: 30vw;
 }
@@ -16,6 +20,8 @@
     display: grid;
     grid-template-columns: repeat(3, 1fr);
     gap: 12px;
+    min-height: 615px;
+
 }
 
 

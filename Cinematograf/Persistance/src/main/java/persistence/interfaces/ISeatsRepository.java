@@ -8,4 +8,5 @@ import java.util.List;
 public interface ISeatsRepository extends IRepositoryCrud<Seat, Long> {
     void deleteAllSeatsByMovie(Long movieId);
     List<Seat> getAllSeatsByMovie(Long movieId);
+    List<Seat> getAllSeatsByReservation(Long reservationId);
 }

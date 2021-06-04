@@ -23,7 +23,6 @@ public class DBMoviesRepository implements IMovieRepository {
 
     private static final Logger logger= LogManager.getLogger();
 
-    public DBMoviesRepository(){}
 
     public DBMoviesRepository(Validator<Movie> validator, SessionFactory sessionFactory) {
 
@@ -48,6 +47,7 @@ public class DBMoviesRepository implements IMovieRepository {
             } catch (RuntimeException ex) {
                 if (tx != null)
                     tx.rollback();
+                System.out.println(ex.getMessage());
             }
         }
         return movie;

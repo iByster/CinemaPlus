@@ -5,6 +5,8 @@ import {Seat} from "./Seat/Seat";
 import {useLocation} from "react-router-dom";
 import {SaveReservation} from "../utils/rest-calls-reservations";
 import {useAuthContext} from "../Auth/AuthContext";
+import {GetMovies} from "../utils/rest-calls-movies";
+import {useMovieContext} from "../Movies/MovieContextProvider";
 
 export function BuyTicketPage(){
 
@@ -16,6 +18,8 @@ export function BuyTicketPage(){
 
     console.log(movieID);
 
+    const {setMovies} = useMovieContext();
+
 
     const [seats, setSeats] = useState([]);
 
@@ -26,28 +30,33 @@ export function BuyTicketPage(){
 
     useEffect(()=>{
         GetSeats(movieID).then(res => setSeats(res));
-    }, []);
+    }, [movieID]);
 
-    const handleBuyTicketBtn = () => {
+    const handleBuyTicketBtn = async () => {
         const reservation = {
-            id:'0',
+            id: '0',
             movieID: movieID,
             clientID: userProfile.username,
             reservationDate: `${Date.now()}`
         }
-        SaveReservation(reservation)
-            .then(res => {
-                selectedSeats.forEach(seat => {
-                    seat.seatType = 'TAKEN';
-                    console.log("HEREEEEEEEEEEEE " + res.id);
-                    seat.reservation = res.id;
-                    UpdateSeat(seat)
-                        .then(r => console.log(r));
-                });
-            })
-            .catch(e=>console.log(e));
+        const res = await SaveReservation(reservation);
 
-        selectedSeats.length = 0;
+        for(let i = 0; i < selectedSeats.length; i++){
+            selectedSeats[i].seatType = 'TAKEN';
+            console.log("HEREEEEEEEEEEEE " + res.id);
+            selectedSeats[i].reservation = res.id;
+            await UpdateSeat(selectedSeats[i]);
+
+        }
+
+
+
+        selectedSeats.length = 0
+
+
+        await GetSeats(movieID).then(r => setSeats(r))
+        alert(`Reservation made: ${JSON.stringify(reservation, null, 4)}`);
+
     }
 
     const addSeat = (seat) => {
@@ -61,10 +70,6 @@ export function BuyTicketPage(){
         console.log(selectedSeats);
     }
 
-    const seatInactive = () => {
-
-    }
-
 
     return(
         <section className={style["buyticket-container"]}>
@@ -75,7 +80,7 @@ export function BuyTicketPage(){
             </div>
             <div className={style['seats-container']}>
                 {
-                    seats.map((seat) => (<Seat key={seat.id} seatInactive={seatInactive} addSeatProp={addSeat} removeSeatProp={removeSeat} data={seat}/>))
+                    seats.map((seat) => (<Seat key={seat.id} addSeatProp={addSeat} removeSeatProp={removeSeat} data={seat}/>))
                 }
             </div>
             <div>

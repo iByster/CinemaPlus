@@ -1,19 +1,38 @@
 .form-alignment-grid{
     display: grid;
-    grid-template-columns: 180px 220px ;
-    grid-template-rows: 20% 20% 20% 20%;
+    grid-template-columns: 25% 35% ;
+    grid-template-rows: 14% 14% 14% 14% 14% 14% 14%;
+    align-self: center;
+    justify-content: center;
+    justify-items: center;
+    margin: 0 auto;
+    background: white;
+    width: 40%;
+    box-shadow: rgba(99, 99, 99, 0.2) 0px 2px 8px 0px;
+}
 
+.registration-background {
+    background: #A1E473;
+    height: 300px;
+    margin-bottom: 750px;
 }
 
 .registration-container {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
+    /*display: flex;*/
+    /*flex-direction: column;*/
+    /*align-items: center;*/
+    /*justify-content: center;*/
+
+    overflow-wrap: break-word;
+    padding-top: 65px;
+
+
+
 }
 
 .register-container form {
     margin: 0 auto;
+
 }
 
 .grid-item-align-center {
@@ -26,16 +45,21 @@
     color: green;
     text-decoration: underline;
     text-align: center;
+
 }
 
-.button {
-    font-size: 20px;
-    font-weight: lighter;
-    color: #797777;
-    background: white;
-    border: 1px solid #797777;
-    padding: 10px 18px;
-    justify-self: end;
-    grid-row:4;
-    grid-column:2;
+    .button {
+        font-size: 20px;
+        font-weight: lighter;
+        color: #797777;
+        background: white;
+        border: 1px solid #797777;
+        padding: 10px 18px;
+        justify-self: end;
+        grid-row:7;
+        grid-column:2;
+    }
+
+.button:hover {
+    background: #eaeaea;
 }

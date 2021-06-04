@@ -1,0 +1,25 @@
+.reservation-card {
+    display: grid;
+    grid-template-columns: 32% 68%;
+    grid-template-areas: 'image content';
+    border: 1px solid black;
+    width: 60%;
+    margin: 40px auto;
+
+}
+
+.reservation-card img {
+    width: 30vh;
+    grid-area: image;
+}
+.right-side{
+    grid-area: content;
+    font-size: 30px;
+    padding: 25px 0 0 20px;
+}
+
+.reservation-container {
+    display: flex;
+    flex-direction: column;
+    min-width: 500px;
+}

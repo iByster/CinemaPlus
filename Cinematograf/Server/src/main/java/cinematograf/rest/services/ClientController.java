@@ -7,6 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+import persistence.exceptions.RepositoryException;
 import persistence.interfaces.IClientRepository;
 import persistence.interfaces.IMovieRepository;
 
@@ -38,5 +39,18 @@ public class ClientController {
             return new ResponseEntity<String>("User not found", HttpStatus.NOT_FOUND);
         }
 
+    }
+
+    @RequestMapping(method = RequestMethod.POST)
+    public ResponseEntity<?> save(@RequestBody Client client){
+        System.out.println(client);
+
+        try {
+            client = clientRepository.save(client);
+            return new ResponseEntity<Client>(client, HttpStatus.OK);
+        }catch (RepositoryException ex){
+            System.out.println("Ctrl Delete user exception");
+            return new ResponseEntity<String>(ex.getMessage(),HttpStatus.BAD_REQUEST);
+        }
     }
 }

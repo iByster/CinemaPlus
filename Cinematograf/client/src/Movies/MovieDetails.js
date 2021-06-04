@@ -1,5 +1,5 @@
 export function MovieDetails(){
     return(
-        <h1>Cact</h1>
+        <h1>Movie details</h1>
     );
 }

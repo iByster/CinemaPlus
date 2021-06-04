@@ -2,6 +2,7 @@ package cinematograf.rest.services;
 
 import entities.Movie;
 import entities.Reservation;
+import entities.Seat;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -18,15 +19,40 @@ public class ReservationController {
     private IReservationRepository reservationRepository;
 
     @RequestMapping(method = RequestMethod.POST)
-    public Reservation save(@RequestBody Reservation reservation){
+    public ResponseEntity<?> save(@RequestBody Reservation reservation){
         System.out.println(reservation);
-        return reservationRepository.save(reservation);
+
+        try{
+            reservation = reservationRepository.save(reservation);
+            return new ResponseEntity<Reservation>(reservation, HttpStatus.OK);
+        } catch (Exception e){
+            return new ResponseEntity<String>("Reservations not found", HttpStatus.NOT_FOUND);
+
+        }
     }
 
-    @RequestMapping( method= RequestMethod.GET)
-    public ResponseEntity<List<Reservation>> getAll(){
-        return new ResponseEntity<List<Reservation>>(reservationRepository.getAll(), HttpStatus.OK);
+    @RequestMapping(value = "/{id}", method = RequestMethod.GET)
+    public ResponseEntity<?> getAllByClient(@PathVariable String id){
+
+        List<Reservation> reservations = reservationRepository.getAllByClient(id);
+        if (reservations == null)
+            return new ResponseEntity<String>("Reservations not found", HttpStatus.NOT_FOUND);
+        else
+            return new ResponseEntity<List<Reservation>>(reservations, HttpStatus.OK);
     }
+
+
+    @RequestMapping(value = "/{id}", method = RequestMethod.DELETE)
+    public ResponseEntity<?> deleteSeatsByMovie(@PathVariable Long id) {
+        try {
+            reservationRepository.deleteAllReservationsByMovie(id);
+            return new ResponseEntity<Seat>(HttpStatus.OK);
+        }catch (Exception e){
+            return new ResponseEntity<String>("Reservations not found", HttpStatus.NOT_FOUND);
+
+        }
+    }
+
 
 
 

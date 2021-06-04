@@ -16,7 +16,7 @@
         <property name="show_sql">true</property>
         <property name="format_sql">true</property>
 
-
+        <mapping class="entities.Admin"/>
         <mapping class="entities.Client"/>
         <mapping class="entities.Movie"/>
         <mapping class="entities.Reservation"/>

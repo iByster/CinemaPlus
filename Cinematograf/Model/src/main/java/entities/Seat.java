@@ -21,6 +21,10 @@ public class Seat extends Entity {
 
     public Seat(){}
 
+    public Seat(Long id){
+        this.setId(id);
+    }
+
     public Seat(int x, int y, SeatType seatType, Movie movie, Reservation reservation) {
         this.x = x;
         this.y = y;

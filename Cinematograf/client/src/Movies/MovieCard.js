@@ -1,9 +1,18 @@
 import {Link} from "react-router-dom";
 import style from './Movies.module.css'
-export function MovieCard({data}){
+import {useState} from "react";
+import {useAuthContext} from "../Auth/AuthContext";
+export function MovieCard({data, setSelected, selected}){
     const {title, description, rating, duration, movieType, image} = data;
+
+    const {userProfile} = useAuthContext();
+
+    const handleSelectedMovie = () => {
+        console.log("hereeeee");
+        setSelected(data.id);
+    }
     return (
-        <article className={style['movie-card']}>
+        <article onClick={handleSelectedMovie} className={`${style['movie-card']}  ${selected === data.id && userProfile?.adminMode && style['movie-card-selected']}`}>
             <Link to={"/movies/" + data.id}>
 
                 <img src={image} alt={title}/>

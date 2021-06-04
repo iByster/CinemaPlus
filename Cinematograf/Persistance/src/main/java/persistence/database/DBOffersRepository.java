@@ -124,4 +124,26 @@ public class DBOffersRepository implements IOfferRepository {
     public int size() {
         return 0;
     }
+
+    @Override
+    public List<Offer> getAllOffersByClientId(String username) {
+        List<Offer> offers = null;
+        try(Session session = sessionFactory.openSession()) {
+            Transaction tx = null;
+            try {
+                tx = session.beginTransaction();
+                String queryString = "SELECT * FROM Offers WHERE clientId='" + username + "'";
+                offers = session.createNativeQuery(queryString, Offer.class).list();
+                System.out.println("Offers returned : \n" + offers);
+
+                tx.commit();
+
+                return offers;
+            } catch (RuntimeException ex) {
+                if (tx != null)
+                    tx.rollback();
+            }
+        }
+        return offers;
+    }
 }

@@ -1,7 +1,11 @@
-export function Offers(){
+import style from './Offers.module.css'
+
+export function Offers({data}){
     return(
-    <section>
-        <h1>Offers</h1>
-    </section>
+    <article>
+        <p>
+        {`Offer: ${data.off}`}
+        </p>
+    </article>
 );
 }

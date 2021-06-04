@@ -33,25 +33,23 @@ public class DBClientRepository implements IClientRepository {
 
     @Override
     public Client save(Client user) {
-        Client client = null;
         try(Session session = sessionFactory.openSession()) {
             Transaction tx = null;
             try {
                 validator.validate(user);
                 tx = session.beginTransaction();
 //                String queryString = "INSERT * INTO Clients VALUES ('"+ user.getUsername() + "', '" + user.getPassword() + "', " + user.getFidelity() + ", '" + user.getName() + "', '" + user.getTelNumber() + "', " + user.getAge() + ")";
-                session.save(user);
-                System.out.println("Client with user"+ user.getUsername() +"saved");
-
+                String username = (String)session.save(user);
                 tx.commit();
-
-                return client;
+                user.setUsername(username);
+                System.out.println("Client "+ user +"saved");
+                return user;
             } catch (RuntimeException ex) {
                 if (tx != null)
                     tx.rollback();
             }
         }
-        return client;
+        return null;
     }
 
     @Override

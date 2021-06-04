@@ -11,3 +11,7 @@
 .seat-active {
     background: #BBF7ED !important;
 }
+
+.seat-taken {
+    background: red;
+}

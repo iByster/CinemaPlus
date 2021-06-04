@@ -13,11 +13,11 @@ export function AuthContextProvider({ children }) {
     function login(userProfile) {
         // setAccessToken(accessToken);
         setUserProfile(userProfile);
-        console.log(`user: ${userProfile.username} logged in`);
+        console.log(`user: ${userProfile.username} logged in ${userProfile}`);
     }
 
     function logout() {
-        login();
+        login({});
 
     }
 

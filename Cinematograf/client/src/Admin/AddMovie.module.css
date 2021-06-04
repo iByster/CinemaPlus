@@ -1,0 +1,32 @@
+.add-movie-form-alignment-grid{
+    display: grid;
+    grid-template-columns: 25% 35%;
+    grid-template-rows: 14% 14% 14% 14% 14% 14% 14%;
+    align-self: center;
+    justify-content: center;
+    justify-items: center;
+    margin: 0 auto 30px auto;
+
+    background: white;
+    width: 40%;
+    box-shadow: rgba(99, 99, 99, 0.2) 0px 2px 8px 0px;
+
+}
+
+
+.add-movie-button {
+    font-size: 20px;
+    font-weight: lighter;
+    color: #797777;
+    background: white;
+    border: 1px solid #797777;
+    padding: 10px 18px;
+
+}
+
+.add-movie-form-alignment-grid a {
+    grid-row: 7;
+    grid-column: 2;
+    justify-self: end;
+
+}

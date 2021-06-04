@@ -23,6 +23,10 @@ public class Movie extends Entity {
 
     public Movie(){}
 
+    public Movie(Long id){
+        this.setId(id);
+    }
+
     public Movie(String id){
         this.setId(Long.parseLong(id));
     }

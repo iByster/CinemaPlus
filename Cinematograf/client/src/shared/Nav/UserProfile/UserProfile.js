@@ -15,9 +15,10 @@ export function UserProfile({data}){
     return(
 
             <div className={style['user-profile-container']}>
-                <div onClick={handleToggle} className={`${style["user-profile-logo"]} ${dropdownActive ? style["dropdown-logo-active"] : ''} ${style.noselect}`}>
+                <div onClick={handleToggle} className={`${style["user-profile-logo"]} ${dropdownActive && !data?.adminMode ? style["dropdown-logo-active"] : ''} ${style.noselect}`}>
                     {username.substring(0, 2).toUpperCase()}
                 </div>
+                {!data?.adminMode && (
                 <ul className={
                     `${style['dropdown-items']} 
                     ${dropdownActive ? style["dropdown-active"] : style["dropdown-disable"]} 
@@ -35,6 +36,7 @@ export function UserProfile({data}){
                     </li>
                     <li>Fidelity</li>
                 </ul>
+                )}
             </div>
 
     );
