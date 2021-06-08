@@ -1,4 +1,4 @@
-# issRepo
+# CinemaPlus
 O institutie cinematografica pune la dispozitia spectatorilor un sistem pentru rezervarea locurilor la filme. 
 În fiecare zi, exista mai multe filme, la care spectatorii pot rezerva locuri începand de dimineata. 
 Pentru un loc în sala, sunt memorate urmatoarele informatii: pozitie (rândul x, loja y etc.), numar si pret. 
