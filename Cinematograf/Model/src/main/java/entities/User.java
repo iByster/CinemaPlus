@@ -4,9 +4,10 @@ package entities;
 import org.hibernate.annotations.NaturalId;
 
 import javax.persistence.*;
+import java.io.Serializable;
 
 @MappedSuperclass
-public class User {
+public class User implements Serializable {
 
     @Id
     @NaturalId

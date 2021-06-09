@@ -11,8 +11,11 @@ import org.hibernate.SessionFactory;
 import org.hibernate.Transaction;
 import persistence.validators.Validator;
 
+import javax.persistence.Query;
 import javax.transaction.Transactional;
 import java.util.List;
+import java.util.stream.Collectors;
+
 @Repository
 @Transactional
 public class DBReservationsRepository implements IReservationRepository {
@@ -154,13 +157,16 @@ public class DBReservationsRepository implements IReservationRepository {
 
             try {
                 tx = session.beginTransaction();
-                session.delete(movieID);
+                session.createNativeQuery("DELETE FROM Reservations WHERE movieId = (:Mid)")
+                        .setParameter("Mid", movieID.intValue())
+                        .executeUpdate();
 
                 tx.commit();
 
             } catch (RuntimeException ex) {
                 if (tx != null)
                     tx.rollback();
+                System.out.println("fail");
             }
         }
     }

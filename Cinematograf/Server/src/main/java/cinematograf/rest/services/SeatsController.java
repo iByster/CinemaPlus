@@ -52,12 +52,12 @@ public class SeatsController {
         }
     }
 
-    @RequestMapping(value = "/{id}", method = RequestMethod.DELETE)
+    @RequestMapping(value = "/movie/{id}", method = RequestMethod.DELETE)
     public ResponseEntity<?> deleteSeatsByMovie(@PathVariable Long id) {
 //        System.out.println("De seat ...");
         try {
             seatsRepository.deleteAllSeatsByMovie(id);
-            return new ResponseEntity<Seat>(HttpStatus.OK);
+            return new ResponseEntity<String>(HttpStatus.OK);
         }catch (Exception e){
             return new ResponseEntity<String>("Seats not found", HttpStatus.NOT_FOUND);
 

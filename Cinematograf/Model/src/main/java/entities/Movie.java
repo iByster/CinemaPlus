@@ -88,6 +88,9 @@ public class Movie extends Entity {
         this.image = image;
     }
 
+
+
+
     @Override
     public String toString() {
         return "Movie{" +

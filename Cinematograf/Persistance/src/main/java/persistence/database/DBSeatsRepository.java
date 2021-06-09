@@ -1,5 +1,6 @@
 package persistence.database;
 
+import entities.Reservation;
 import entities.Seat;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
@@ -11,8 +12,11 @@ import org.hibernate.SessionFactory;
 import org.hibernate.Transaction;
 import persistence.validators.Validator;
 
+import javax.persistence.Query;
 import javax.transaction.Transactional;
 import java.util.List;
+import java.util.stream.Collectors;
+
 @Repository
 @Transactional
 public class DBSeatsRepository implements ISeatsRepository {
@@ -131,8 +135,9 @@ public class DBSeatsRepository implements ISeatsRepository {
 
             try {
                 tx = session.beginTransaction();
-                session.delete(movieId);
-
+                session.createNativeQuery("DELETE FROM Seats WHERE movieID = (:Mid)")
+                        .setParameter("Mid", movieId.intValue())
+                        .executeUpdate();
                 tx.commit();
 
             } catch (RuntimeException ex) {
@@ -149,7 +154,7 @@ public class DBSeatsRepository implements ISeatsRepository {
             Transaction tx = null;
             try {
                 tx = session.beginTransaction();
-                String queryString = "SELECT * FROM Seats WHERE movieId =" + movieId;
+                String queryString = "SELECT * FROM Seats WHERE movieID =" + movieId;
                 seats = session.createNativeQuery(queryString, Seat.class).list();
                 System.out.println("Seats returned : \n" + seats);
 

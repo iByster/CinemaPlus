@@ -6,6 +6,7 @@ import entities.Movie;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+//import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.web.bind.annotation.*;
 import persistence.exceptions.RepositoryException;
 import persistence.interfaces.IClientRepository;
@@ -14,8 +15,15 @@ import persistence.interfaces.IMovieRepository;
 import java.util.List;
 @CrossOrigin
 @RestController
-@RequestMapping("cinematograf/clients")
+@RequestMapping("/cinematograf/clients")
 public class ClientController {
+
+//    private final BCryptPasswordEncoder bCryptPasswordEncoder;
+//
+//    public ClientController(BCryptPasswordEncoder bCryptPasswordEncoder) {
+//        this.bCryptPasswordEncoder = bCryptPasswordEncoder;
+//    }
+
     @Autowired
     private IClientRepository clientRepository;
 
@@ -32,6 +40,14 @@ public class ClientController {
     @RequestMapping( value = "", method= RequestMethod.GET)
     public ResponseEntity<?> login(
             @RequestParam("username") String username, @RequestParam("password") String password){
+//        Client client = clientRepository.findOne(username);
+//        if(client.getPassword().equals(bCryptPasswordEncoder.encode(password))){
+//            return new ResponseEntity<Client>(client, HttpStatus.OK);
+//        } else {
+//            return new ResponseEntity<String>("User not found", HttpStatus.NOT_FOUND);
+//        }
+
+
         Client client = clientRepository.findOne(username);
         if(client.getPassword().equals(password)){
             return new ResponseEntity<Client>(client, HttpStatus.OK);
@@ -44,7 +60,8 @@ public class ClientController {
     @RequestMapping(method = RequestMethod.POST)
     public ResponseEntity<?> save(@RequestBody Client client){
         System.out.println(client);
-
+//        client.setPassword(bCryptPasswordEncoder.encode(client.getPassword()));
+        System.out.println("Password encoded:" + client.getPassword());
         try {
             client = clientRepository.save(client);
             return new ResponseEntity<Client>(client, HttpStatus.OK);

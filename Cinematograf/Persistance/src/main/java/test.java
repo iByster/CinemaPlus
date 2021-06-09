@@ -88,10 +88,10 @@ public class test {
 //            seatsRepository.save(seat);
 //
 //        }
-
-        Seat seat = seatsRepository.findOne(32L);
+        seatsRepository.deleteAllSeatsByMovie(9L);
+//        Seat seat = seatsRepository.findOne(32L);
 //        seat.setReservation(new Reservation("2"));
-        seatsRepository.update(seat);
+//        seatsRepository.update(seat);
     }
 
     private static void testDBReservations(){
@@ -100,13 +100,14 @@ public class test {
 //        List<Seat> seatList = new ArrayList<>();
 //        seatList.add(seatsRepository.findOne(1L));
 //        seatList.add(seatsRepository.findOne(2L));
-        Movie movie = new Movie();
-        movie.setId(5L);
-        Client client = new Client();
-        client.setUsername("bogdan");
-        Reservation reservation = new Reservation(Calendar.getInstance(), client, movie);
-        Reservation reservation2 = reservationsRepository.save(reservation);
-        System.out.println(reservation2);
+//        Movie movie = new Movie();
+//        movie.setId(5L);
+        reservationsRepository.deleteAllReservationsByMovie(9L);
+//        Client client = new Client();
+//        client.setUsername("bogdan");
+//        Reservation reservation = new Reservation(Calendar.getInstance(), client, movie);
+//        Reservation reservation2 = reservationsRepository.save(reservation);
+//        System.out.println(reservation2);
 //        seatList.get(0).setReservation(reservation);
 //        seatList.get(0).setSeatType(SeatType.TAKEN);
 //        seatList.get(1).setSeatType(SeatType.TAKEN);
@@ -138,7 +139,7 @@ public class test {
     public static void main(String ... arg) {
         initialize();
 
-        testDBAdmin();
+        testDBSteats();
 
         close();
     }

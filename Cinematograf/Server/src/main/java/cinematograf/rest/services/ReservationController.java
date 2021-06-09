@@ -46,7 +46,7 @@ public class ReservationController {
     public ResponseEntity<?> deleteSeatsByMovie(@PathVariable Long id) {
         try {
             reservationRepository.deleteAllReservationsByMovie(id);
-            return new ResponseEntity<Seat>(HttpStatus.OK);
+            return new ResponseEntity<String>(HttpStatus.OK);
         }catch (Exception e){
             return new ResponseEntity<String>("Reservations not found", HttpStatus.NOT_FOUND);
 

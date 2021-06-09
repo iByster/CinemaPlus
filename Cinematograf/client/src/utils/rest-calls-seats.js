@@ -34,10 +34,11 @@ export function DeleteSeatsByMovie(movieID){
 
     const myInit = { method: 'DELETE',
         headers: headers,
-        mode: 'cors'}
-    const request = new Request(CINEMATOGRAF_SEATS_BASE_URL + '/' + movieID, myInit);
+        mode: 'cors'
+    }
+    const request = new Request(CINEMATOGRAF_SEATS_BASE_URL + '/movie/' + movieID, myInit);
 
-    console.log('Inainte de fetch pentru '+CINEMATOGRAF_SEATS_BASE_URL)
+    console.log('Inainte de fetch pentru cacat'+CINEMATOGRAF_SEATS_BASE_URL+ '/movie/' + movieID)
 
     return fetch(request)
         .then(status)
